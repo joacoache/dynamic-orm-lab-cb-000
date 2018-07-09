@@ -60,4 +60,12 @@ class InteractiveRecord
     DB[:conn].execute(sql, name)
   end
 
+  def self.find_by(options = {})
+    sql = <<-SQL
+    SELECT * FROM #{self.table_name}
+    WHERE #{options.keys.first.to_s} = "#{options[options.keys.first]}"
+    SQL
+    DB[:conn].execute(sql, name)
+  end
+
 end
